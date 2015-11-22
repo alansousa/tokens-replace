@@ -23,8 +23,10 @@ describe('Webpack replace loader ...', function () {
               test: /\.js$/,
               loader: '__this',
               query: {
-                search: 'var value',
-                replace: 'var a'
+                replace: [{
+                  from: 'var value',
+                  to: 'var a'
+                }]
               }
             }
           ]
@@ -38,42 +40,6 @@ describe('Webpack replace loader ...', function () {
           expect(contents).to.be.a('string');
           expect(contents.indexOf('var value')).to.equal(-1);
           expect(contents.indexOf('var a')).to.not.equal(-1);
-          done();
-        });
-      }
-    );
-  });
-
-  it('should replace with pattern search', function (done) {
-    webpack(
-      {
-        entry: entryFilePath,
-        output: {
-          path: outputDirPath,
-          filename: outputFileName
-        },
-        module: {
-          loaders: [
-            {
-              test: /\.js$/,
-              loader: '__this',
-              query: {
-                search: 'var VALUE = \'\.*\'',
-                replace: 'var a = \'\'',
-                flags: 'i'
-              }
-            }
-          ]
-        }
-      },
-      function (error, stats) {
-        expect(error).to.equal(null);
-
-        fs.readFile(outputFilePath, 'utf8', function (error, contents) {
-          expect(error).to.equal(null);
-          expect(contents).to.be.a('string');
-          expect(contents.indexOf('var value')).to.equal(-1);
-          expect(contents.indexOf('var a = \'\'')).to.not.equal(-1);
           done();
         });
       }
@@ -94,16 +60,20 @@ describe('Webpack replace loader ...', function () {
               test: /\.js$/,
               loader: '__this',
               query: {
-                search: 'var value',
-                replace: 'var a'
+                replace: [{
+                  from: 'var value',
+                  to: 'var a'
+                }]
               }
             },
             {
               test: /bar\.js$/,
               loader: '__this',
               query: {
-                search: 'var value',
-                replace: 'var bar'
+                replace: [{
+                  from: 'var value',
+                  to: 'var a'
+                }]
               }
             }
           ]
