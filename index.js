@@ -7,7 +7,7 @@ module.exports = function(source) {
   for (var i = 0; i < query.replace.length; i++) {
     var option = query.replace[i];
 
-    source = source.split(option.search).join(option.replace)
+    source = source.split(option.from).join(option.to)
   }
 
   return source;
