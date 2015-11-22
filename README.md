@@ -5,14 +5,14 @@ Perform replacements (plain and regular expression) in the contents loaded by th
 ## Install:
 
 ```bash
-$ npm install --save-dev replace-loader
+$ npm install --save-dev webpack-replace
 ```
 
 ## Usage:
 
-### Plain replacement:
+Add the loader to your `webpack.config.js`:
 
-In your `webpack.config.js`:
+### Single replacement:
 
 ```javascript
 module.exports = {
@@ -21,7 +21,7 @@ module.exports = {
       loaders: [
         {
           test: /fileInWhichJQueryIsUndefined\.js$/,
-          loader: 'string-replace',
+          loader: 'webpack-replace',
           query: {
             search: 'jQuery',
             replace: 'window.$'
@@ -32,13 +32,7 @@ module.exports = {
 }
 ```
 
-### Regex replacement:
-
-To achieve regular expression replacement you should specify the `flags` query param
-(as an empty string if you do not want any flags). In this case, `search` and `flags` are being
-passed to the [RegExp](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp) constructor.
-
-In your `webpack.config.js`:
+### Multiple replacements at once:
 
 ```javascript
 module.exports = {
@@ -46,12 +40,13 @@ module.exports = {
     module: {
       loaders: [
         {
-          test: /fileInWhichJQueryIsUndefined\.js$/,
-          loader: 'string-replace',
+          test: /\.js$/,
+          loader: 'webpack-replace',
           query: {
-            search: 'jquery',
-            replace: 'window.$',
-            flags: 'i'
+            replace: [{
+              from: 'jQuery',
+              to: 'window.$'
+            }]
           }
         }
       ]
