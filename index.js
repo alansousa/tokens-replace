@@ -3,7 +3,7 @@ var utils = require('loader-utils');
 module.exports = function(source) {
   this.cacheable();
 
-  var query = utils.parseQuery(this.query);
+  var query = utils.getOptions(this.query);
   if (typeof(query.replace) === 'object') {
     for (var i = 0; i < query.replace.length; i++) {
       var option = query.replace[i];

@@ -5,7 +5,7 @@ Perform replacements (plain and regular expression) in the contents loaded by th
 ## Install:
 
 ```bash
-$ npm install --save-dev webpack-replace
+$ npm install --save-dev tokens-replace
 ```
 
 ## Usage:
@@ -21,7 +21,7 @@ module.exports = {
       loaders: [
         {
           test: /fileInWhichJQueryIsUndefined\.js$/,
-          loader: 'webpack-replace',
+          loader: 'tokens-replace',
           query: {
             search: 'jQuery',
             replace: 'window.$'
